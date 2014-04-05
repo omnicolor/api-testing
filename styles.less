@@ -1,6 +1,8 @@
-@color1: #ff0000;
-@color2: #00ff00;
-@color3: #0000ff;
+@redColor: #d62e2e;
+@orangeColor: #ff9830;
+@tanColor: #a2a362;
+@yellowColor: #fcff90;
+@grayColor: #473d3d;
 
 @font-face {
     font-family: 'Monda';
@@ -50,11 +52,6 @@ section.slide {
     display: none;
 }
 
-.highlight {
-    background-color: #F2F5A9;
-    font-size: 100%;
-}
-
 .slide pre.cli {
     background-color: #000000;
     bottom: 0;
@@ -75,8 +72,8 @@ section.slide pre.cli * {
 }
 
 .slide {
-    border-bottom: 2em solid @color1;
-    border-top: 1.5em solid @color3;
+    border-bottom: 2em solid @yellowColor;
+    border-top: 1.5em solid @tanColor;
     margin-bottom: -2.1em;
 }
 
@@ -95,11 +92,44 @@ section.slide pre.cli * {
     -webkit-margin-after: 0;
 }
 
-.slide.title::after {
-    content: "";
+.slide::after {
+    color: @grayColor;
+    content: "Testing APIs with Behat and PHPUnit";
+    left: 1em;
 }
 
-.slide::after {
-    content: "Title goes here";
-    left: 1em;
+.title .container {
+    height: 318px;
+}
+
+.slide.title h1 {
+    color: @redColor;
+    font-size: 5em;
+    margin-bottom: 0;
+    margin-right: 10px;
+    padding: 0;
+    position: relative;
+    text-align: right;
+}
+
+.slide.title h2 {
+    border-bottom: 0;
+    color: @orangeColor;
+    margin-bottom: 0;
+    margin-right: 10px;
+    padding: 0;
+    position: relative;
+    text-align: right;
+}
+
+.slide.title h3 {
+    color: @grayColor;
+    margin-right: 10px;
+    margin-top: 0;
+    text-align: right;
+}
+
+/* Turn off the title in the footer on the title slide */
+.slide.title::after {
+    content: "";
 }
