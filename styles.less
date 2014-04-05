@@ -102,8 +102,11 @@ section.slide pre.cli * {
     height: 318px;
 }
 
-.slide.title h1 {
+h1 {
     color: @redColor;
+}
+
+.slide.title h1 {
     font-size: 5em;
     margin-bottom: 0;
     margin-right: 10px;
@@ -132,4 +135,18 @@ section.slide pre.cli * {
 /* Turn off the title in the footer on the title slide */
 .slide.title::after {
     content: "";
+}
+
+.what-youll-learn h1 {
+    font-size: 4em;
+}
+
+.what-youll-learn span {
+    color: @orangeColor;
+    display: inline-block;
+    font-size: .3em;
+    position: relative;
+    -webkit-transform: rotate(90deg) translate(-500%);
+    transform: rotate(90deg);
+    width: 20px;
 }
