@@ -94,6 +94,28 @@
     </ul>
 </section>
 
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+function testBareGet() {
+    $ch = curl_init(
+        'https://api-sandbox.foxycart.com'
+    );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    curl_exec($ch);
+    $info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $this-&gt;assertEquals(400, $info);
+}</pre>
+    <ul class="note">
+        <li>This PHPUnit test sets up a cURL request to the root URL</li>
+        <li>and doesn't set any headers or send any data</li>
+        <li>FoxyCart has a required header that you must send</li>
+        <li>So this is a bad request</li>
+        <li>It returns HTTP 400 to tell us we messed up</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
