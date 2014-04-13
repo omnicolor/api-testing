@@ -37,6 +37,8 @@ section.slide {
     left: 50%;
     position: absolute;
     top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .pull-left {
@@ -149,4 +151,9 @@ h1 {
     transform: rotate(90deg);
     white-space: nowrap;
     width: 20px;
+}
+
+.slide h1.title {
+    font-size: 100%;
+    top: -45px;
 }
