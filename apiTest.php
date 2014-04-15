@@ -54,4 +54,18 @@ class ApiTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('The FOXYCART-API-VERSION request header',
             $output);
     }
+
+    /**
+     * Test the content's error message after parsing it as JSON.
+     * @test
+     */
+    public function testOutputAsJson() {
+        $ch = curl_init('https://api-sandbox.foxycart.com/');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        $output = json_decode($output);
+        $this->assertContains(
+            'The FOXYCART-API-VERSION request header',
+            $output[0]->message);
+    }
 }

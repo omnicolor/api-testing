@@ -229,6 +229,26 @@ public function testOutputContainsErrorMessage() {
     </ul>
 </section>
 
+<section class="slide">
+    <pre class="prettyprint">
+public function testOutputAsJson() {
+    $ch = curl_init(&hellip;);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    $output = curl_exec($ch);
+    $output = json_decode($output);
+    $this-&gt;assertContains(
+        'The FOXYCART-API-VERSION request header',
+        $output[0]-&gt;message);
+}</pre>
+    <ul class="note">
+        <li>One way to get around that particular problem</li>
+        <li>Parse the response as JSON</li>
+        <li>This is a bit more explicit,</li>
+        <li>finding the message where we expect it in the output</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
