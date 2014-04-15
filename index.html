@@ -165,6 +165,29 @@ function testBareGet() {
     </ul>
 </section>
 
+<section class="slide">
+<h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+function testContentTypeOnError() {
+    $ch = curl_init(
+        'https://api-sandbox.foxycart.com/');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    curl_exec($ch);
+    $info = curl_getinfo($ch,
+        CURLINFO_CONTENT_TYPE);
+    $this-&gt;assertEquals(
+        'application/vnd.error+json', $info);
+}</pre>
+    <ul class="note">
+        <li>Here's a test for checking the content type</li>
+        <li>You can see that it's <strong>very</strong> similar to the last one</li>
+        <li>It uses curl_getinfo() to check the content-type header</li>
+        <li>Easy enough, right?</li>
+        <li>But what if you want to test other headers?</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
