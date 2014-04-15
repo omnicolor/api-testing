@@ -142,6 +142,29 @@ function testBareGet() {
     </ul>
 </section>
 
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+function testBareGet() {
+<span class="highlight">    $ch = curl_init(
+        'https://api-sandbox.foxycart.com'
+    );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    curl_exec($ch);</span>
+    $info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $this-&gt;assertEquals(400, $info);
+}</pre>
+    <ul class="note">
+        <li>Using cURL <strong>will</strong> work to test this API</li>
+        <li>However, you end up with this boilerplate code</li>
+        <li>You'll either have to abstract it out or repeat it</li>
+        <li>Obviously, neither of those are particularly great</li>
+        <li>But let's continue with a few more PHPUnit tests</li>
+        <li>and test some other pieces of this API endpoint</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
