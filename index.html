@@ -252,6 +252,27 @@ public function testOutputAsJson() {
     </ul>
 </section>
 
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="cli">
+api-testing(200) /$ phpunit apiTest.php
+PHPUnit 3.7.28 by Sebastian Bergmann.
+
+.....
+
+Time: 1.21 seconds, Memory: 2.75Mb
+
+OK (5 tests, 5 assertions)</pre>
+    <ul class="note">
+        <li>Here's the PHPUnit output when we run our five tests</li>
+        <li>Only five tests</li>
+        <li>and our suite already takes over a second to run</li>
+        <li>If we were to include these tests with our unit tests</li>
+        <li>this would probably convince devs to stop running them</li>
+        <li>after all, slow &rarr; tests are unrun tests</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
