@@ -210,6 +210,25 @@ function testCacheControlHeader() {
     </ul>
 </section>
 
+<section class="slide">
+    <pre class="prettyprint">
+public function testOutputContainsErrorMessage() {
+    $ch = curl_init(&hellip;);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    $output = curl_exec($ch);
+    $this-&gt;assertContains(
+        'The FOXYCART-API-VERSION request header',
+        $output);
+}</pre>
+    <ul class="note">
+        <li>Here we're checking the content of the API's output</li>
+        <li>This shows another problem with doing it this way</li>
+        <li>You can't really tell the difference between headers</li>
+        <li>and the content returned by the API</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">

@@ -41,4 +41,17 @@ class ApiTest extends PHPUnit_Framework_TestCase {
         $output = curl_exec($ch);
         $this->assertContains('Cache-Control: no-cache', $output);
     }
+
+    /**
+     * Test that the content contains the expected error message if a request is
+     * made without the required API version header.
+     * @test
+     */
+    public function testOutputContainsErrorMessage() {
+        $ch = curl_init('https://api-sandbox.foxycart.com/');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        $this->assertContains('The FOXYCART-API-VERSION request header',
+            $output);
+    }
 }
