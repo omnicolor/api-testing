@@ -188,6 +188,25 @@ function testContentTypeOnError() {
     </ul>
 </section>
 
+<section class="slide">
+    <pre class="prettyprint">
+function testCacheControlHeader() {
+    $ch = curl_init(&hellip;);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    $output = curl_exec($ch);
+    $this-&gt;assertContains('Cache-Control: no-cache', $output);
+}</pre>
+    <ul class="note">
+        <li>For the sake of argument</li>
+        <li>let's check the cache-control header</li>
+        <li>Cache control isn't exposed from curl_getinfo</li>
+        <li>So we have to just check the header strings</li>
+        <li>by including them in the output</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
