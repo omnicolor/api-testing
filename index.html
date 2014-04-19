@@ -197,7 +197,8 @@ function testCacheControlHeader() {
         true);
     curl_setopt($ch, CURLOPT_HEADER, true);
     $output = curl_exec($ch);
-    $this-&gt;assertContains('Cache-Control: no-cache', $output);
+    $this-&gt;assertContains('Cache-Control: no-cache',
+        $output);
 }</pre>
     <ul class="note">
         <li>For the sake of argument</li>
@@ -217,7 +218,8 @@ function testCacheControlHeader() {
         true);
     <span class="highlight">curl_setopt($ch, CURLOPT_HEADER, true);</span>
     $output = curl_exec($ch);
-    $this-&gt;assertContains('Cache-Control: no-cache', $output);
+    $this-&gt;assertContains('Cache-Control: no-cache',
+        $output);
 }</pre>
     <ul class="note">
         <li>&hellip; including them in the output</li>
