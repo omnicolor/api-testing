@@ -238,7 +238,7 @@ public function testOutputContainsErrorMessage() {
         true);
     $output = curl_exec($ch);
     $this-&gt;assertContains(
-        'The FOXYCART-API-VERSION request header',
+        'FOXYCART-API-VERSION request header',
         $output);
 }</pre>
     <ul class="note">
@@ -259,7 +259,7 @@ public function testOutputAsJson() {
     $output = curl_exec($ch);
     $output = json_decode($output);
     $this-&gt;assertContains(
-        'The FOXYCART-API-VERSION request header',
+        'FOXYCART-API-VERSION request header',
         $output[0]-&gt;message);
 }</pre>
     <ul class="note">
