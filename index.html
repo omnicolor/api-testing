@@ -272,6 +272,130 @@ public function testOutputAsJson() {
 
 <section class="slide">
     <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+public function testRedirect() {
+    $ch = curl_init(REDIRECT_URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+    curl_exec($ch);
+    $info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $this-&gt;assertEquals(302, $info);
+}</pre>
+    <ul class="note">
+        <li>What about testing redirects?</li>
+        <li>Here we try to cURL a URL that sends a 302</li>
+        <li>However, cURL follows the location header</li>
+        <li>So you'll actually see the response of the final destination</li>
+        <li>Probably a 200 code</li>
+        <li>You've got two options here. First, don't &rarr; follow the redirect</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+public function testRedirectNoFollow() {
+    $ch = curl_init(REDIRECT_URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+<span class="highlight">    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,
+        false);</span>
+    curl_exec($ch);
+    $info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $this-&gt;assertEquals(302, $info);
+}</pre>
+    <ul class="note">
+        <li>don't &hellip; follow the redirect</li>
+        <li>This is the default behavior of cURL</li>
+        <li>cURL will stop at the first response</li>
+        <li>This test will pass</li>
+        <li>You could test the headers at this step here as well</li>
+        <li>Specifically the location header</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+public function testRedirectWithFollow() {
+    $ch = curl_init(REDIRECT_URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+<span class="highlight">    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,
+        true);</span>
+    curl_exec($ch);
+    $info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $this-&gt;assertEquals(302, $info);
+}</pre>
+    <ul class="note">
+        <li>Your other option is to follow the redirect</li>
+        <li>However, cURL will return the final status code</li>
+        <li>So this test will now fail</li>
+        <li>Bummer&hellip; So what's a good little geek supposed to do?</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
+    <pre class="prettyprint">
+public function testRedirectWithFollow() {
+    $ch = curl_init(REDIRECT_URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,
+        true);
+<span class="highlight">    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,
+        true);</span>
+    $output = curl_exec($ch);
+    <strong>&hellip;</strong>
+}</pre>
+    <ul class="note">
+        <li>If we include the headers we can test them</li>
+        <li>Unfortunately, now we have a whole bunch of headers</li>
+        <li>followed by the normal output</li>
+        <li>Here's &rarr; a sample of some headers</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Sample header output</h1>
+    <pre class="prettyprint">
+    HTTP/1.1 302 Found
+    Location: /
+
+    HTTP/1.1 200 OK
+    Last-Modified: Fri, 28 Mar 2014 00:44:43 GMT
+    Content-Length: 1986
+    Vary: Accept-Encoding
+    Content-Type: text/html</pre>
+    <ul class="note">
+        <li>&hellip; a sample of some headers</li>
+        <li>I had to get rid of some of the less interesting ones</li>
+        <li>to fit everything on the slide</li>
+        <li>But one thing you'll notice is that there are two &rarr; response codes</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Sample header output</h1>
+    <pre class="prettyprint">
+    <span class="highlight">HTTP/1.1 302 Found</span>
+    Location: /
+
+    <span class="highlight">HTTP/1.1 200 OK</span>
+    Last-Modified: Fri, 28 Mar 2014 00:44:43 GMT
+    Content-Length: 1986
+    Vary: Accept-Encoding
+    Content-Type: text/html</pre>
+    <ul class="note">
+        <li>&hellip; response codes</li>
+        <li>So to figure out the redirect stuff</li>
+        <li>You'll need to parse this output</li>
+        <li>which is a pain</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing with PHPUnit and cURL</h1>
     <pre class="cli">
 api-testing(200) /$ phpunit apiTest.php
 PHPUnit 3.7.28 by Sebastian Bergmann.
