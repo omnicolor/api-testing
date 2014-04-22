@@ -397,7 +397,7 @@ public function testRedirectWithFollow() {
 <section class="slide">
     <h1 class="title">Testing with PHPUnit and cURL</h1>
     <pre class="cli">
-api-testing(200) /$ phpunit apiTest.php
+<span class="repo">api-testing</span>(<span class="dirty">2</span><span class="ahead">0</span><span class="behind">0</span>) <span class="directory">/</span>$ phpunit apiTest.php
 PHPUnit 3.7.28 by Sebastian Bergmann.
 
 .....
@@ -470,6 +470,35 @@ OK (5 tests, 5 assertions)</pre>
         <li>A really easy way to set up the base for your local dev</li>
         <li>Is with Puphpet, a web front end for setting up</li>
         <li>both vagrant and puppet to run one or more Virtual machines</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Avoiding collisions</h1>
+    <pre class="cli">
+<span class="repo">api-testing</span>(<span class="dirty">3</span><span class="ahead">1</span><span class="behind">0</span> <span class="branch">vagrant</span>) <span class="directory">/</span>$ vagrant status
+Current machine states:
+
+api                       running (virtualbox)
+cache                     running (virtualbox)
+db                        running (virtualbox)
+log                       not created (virtualbox)
+monitor                   not created (virtualbox)
+nosql                     not created (virtualbox)
+web                       running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all
+listed above with their current state. For more information
+about a specific VM, run `vagrant status NAME`.</pre>
+    <ul class="note">
+        <li>Here's an example vagrant set up</li>
+        <li>We've got seven virtual machines each with a different job</li>
+        <li>Your setup will most likely be completely different</li>
+        <li>But this kind of granularity lets you do even more testing</li>
+        <li>For example, three of these machines aren't running</li>
+        <li>Does your application handle not being able to talk to Mongo?</li>
+        <li>You can just turn off your database or API</li>
+        <li>And cleanly handle the errors for a better experience</li>
     </ul>
 </section>
 
