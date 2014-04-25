@@ -899,6 +899,113 @@ Scenario: GET ping endpoint
     </ul>
 </section>
 
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+Scenario: OPTIONS ping endpoint
+    When I send a OPTIONS request to "/ping"
+    Then the response code should be 204
+    And the response should be empty
+    And the header 'Access-Control-Allow-Methods' should be 'GET,HEAD,OPTIONS,PATCH,POST,PUT'
+    </pre>
+    <ul class="note">
+        <li>How about another test, this time on that OPTIONS method</li>
+        <li>Options are how you query the API to find out what's allowed</li>
+        <li>The OPTIONS method is not supposed to return any content</li>
+        <li>So the &rarr; status code should be 204 no content</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+Scenario: OPTIONS ping endpoint
+    When I send a OPTIONS request to "/ping"
+    Then the response code should be <span class="highlight">204</span>
+    And the response should be <span class="highlight">empty</span>
+    And the header 'Access-Control-Allow-Methods' should be 'GET,HEAD,OPTIONS,PATCH,POST,PUT'
+    </pre>
+    <ul class="note">
+        <li>&hellip; status code should be 204 no content</li>
+        <li>And the body of the response should be empty</li>
+        <li>All of the information that OPTIONS returns</li>
+        <li>Will be in &rarr; the headers</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+Scenario: OPTIONS ping endpoint
+    When I send a OPTIONS request to "/ping"
+    Then the response code should be 204
+    And the response should be empty
+    <span class="highlight">And the header 'Access-Control-Allow-Methods' should be 'GET,HEAD,OPTIONS,PATCH,POST,PUT'</span>
+    </pre>
+    <ul class="note">
+        <li>&rarr; the headers</li>
+        <li>In this case we're going to check that it sends a header</li>
+        <li>called Access-Control-Allow-Methods</li>
+        <li>that is set to a list of allowed HTTP methods</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+    /**
+     * Asserts that the response is empty.
+     * @Given /^the response should be empty$/
+     */
+    public function theResponseShouldBeEmpty() {
+        $response = $this-&gt;getSubcontext('api')
+            -&gt;getBrowser()-&gt;getLastResponse()
+            -&gt;getContent();
+        assertEquals('', $response);
+    }</pre>
+    <ul class="note">
+        <li>Testing that the body is empty is pretty trivial</li>
+        <li>We just get the content from the response</li>
+        <li>and compare it to an empty string</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <pre class="prettyprint">
+/**
+ * @Given /^the header \'([^\']*)\' should be \'([^\']*)\'$/
+ */
+public function theHeaderShouldBe($name, $value) {
+    $headers = $this-&gt;getSubcontext('api')
+        -&gt;getBrowser()-&gt;getLastResponse()
+        -&gt;getHeaders();
+    assertContains($name . ': ' . $value, $headers);
+}</pre>
+    <ul class="note">
+        <li>Headers are much easier here than they were with PHPUnit and cURL</li>
+        <li>We call the &rarr; getHeaders()</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <pre class="prettyprint">
+/**
+ * @Given /^the header \'([^\']*)\' should be \'([^\']*)\'$/
+ */
+public function theHeaderShouldBe($name, $value) {
+    $headers = $this-&gt;getSubcontext('api')
+        -&gt;getBrowser()-&gt;getLastResponse()
+<span class="highlight">        -&gt;getHeaders();</span>
+    assertContains($name . ': ' . $value, $headers);
+}</pre>
+    <ul class="note">
+        <li>&hellip; getHeaders() method on the response</li>
+        <li>Which returns an array of headers</li>
+        <li>We can then check that the header exists in the array</li>
+        <li>Simple!</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
