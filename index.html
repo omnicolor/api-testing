@@ -354,6 +354,7 @@ public function testRedirectWithFollow() {
 }</pre>
     <ul class="note">
         <li>If we include the headers we can test them</li>
+        <li>cURL will include them all in the output, one after another</li>
         <li>Unfortunately, now we have a whole bunch of headers</li>
         <li>followed by the normal output</li>
         <li>Here's &rarr; a sample of some headers</li>
@@ -395,6 +396,7 @@ public function testRedirectWithFollow() {
         <li>So to figure out the redirect stuff</li>
         <li>You'll need to parse this output</li>
         <li>which is a pain</li>
+        <li>And you can have any number of redirects before you finish</li>
     </ul>
 </section>
 
