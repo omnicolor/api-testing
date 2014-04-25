@@ -563,6 +563,106 @@ about a specific VM, run `vagrant status NAME`.</pre>
         <li>This is a ping endpoint that responds to different methods</li>
         <li>We'll talk briefly about HTTP methods</li>
         <li>And then write an example Behat feature file for this API</li>
+        <li>Can any of y'all name all 27 HTTP methods?</li>
+    </ul>
+</section>
+
+<section class="slide methods">
+    <h1 class="title">HTTP Methods</h1>
+    <table class="centered">
+        <tr>
+            <td>GET</td>
+            <td>POST</td>
+        </tr>
+        <tr>
+            <td>HEAD</td>
+            <td>PUT</td>
+        </tr>
+        <tr>
+            <td>OPTIONS</td>
+            <td>DELETE</td>
+        </tr>
+        <tr>
+            <td>TRACE</td>
+            <td>&quot;PATCH&quot;</td>
+        </tr>
+        <tr>
+            <td>CONNECT</td>
+        </tr>
+    </table>
+    <ul class="note">
+        <li>There's really only 8</li>
+        <li>And one unofficial one</li>
+        <li>And one of those you're unlikely to every encounter</li>
+        <li>The ones on the left &rarr; are considered safe</li>
+    </ul>
+</section>
+
+<section class="slide methods">
+    <h1 class="title">HTTP Methods</h1>
+    <table class="centered">
+        <tr>
+            <td class="highlight">GET</td>
+            <td>POST</td>
+        </tr>
+        <tr>
+            <td class="highlight">HEAD</td>
+            <td>PUT</td>
+        </tr>
+        <tr>
+            <td class="highlight">OPTIONS</td>
+            <td>DELETE</td>
+        </tr>
+        <tr>
+            <td class="highlight">TRACE</td>
+            <td>&quot;PATCH&quot;</td>
+        </tr>
+        <tr>
+            <td class="highlight">CONNECT</td>
+        </tr>
+    </table>
+    <ul class="note">
+        <li>&hellip; are considered safe</li>
+        <li>So calling them should not change anything</li>
+        <li>GET returns content</li>
+        <li>HEAD is just looking for headers and response codes</li>
+        <li>OPTIONS tells you about the resource and how to interact</li>
+        <li>TRACE is used for diagnostics. I've never used it.</li>
+        <li>Connect is used for proxying. I've never met anyone that's used it.</li>
+    </ul>
+</section>
+
+<section class="slide methods">
+    <h1 class="title">HTTP Methods</h1>
+    <table class="centered">
+        <tr>
+            <td>GET</td>
+            <td class="highlight">POST</td>
+        </tr>
+        <tr>
+            <td>HEAD</td>
+            <td class="highlight">PUT</td>
+        </tr>
+        <tr>
+            <td>OPTIONS</td>
+            <td class="highlight">DELETE</td>
+        </tr>
+        <tr>
+            <td>TRACE</td>
+            <td class="highlight">&quot;PATCH&quot;</td>
+        </tr>
+        <tr>
+            <td>CONNECT</td>
+        </tr>
+    </table>
+    <ul class="note">
+        <li>The ones on the right are unsafe, meaning they change things</li>
+        <li>POST is used for creating new resources</li>
+        <li>PUT is used for creating or updating named resources</li>
+        <li>DELETE is used for creating new resources</li>
+        <li>No, wait... it's probably for removing resources</li>
+        <li>PATCH is for updating just a part of a resource</li>
+        <li>It's not an offical method, but it's useful and frequently used</li>
     </ul>
 </section>
 
