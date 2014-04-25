@@ -666,6 +666,239 @@ about a specific VM, run `vagrant status NAME`.</pre>
     </ul>
 </section>
 
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+    # features/ping-controller.feature
+    Feature: Ping controller
+        To allow API testing
+        As a client
+        I should be able to ping the API
+    </pre>
+    <ul class="note">
+        <li>Let's start some Behat testing of our Ping endpoint</li>
+        <li>This is pretty standard Gherkin stuff</li>
+        <li>Basically describing what this particular feature does</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+    Scenario: GET ping endpoint
+        When I send a GET request to "/ping"
+        Then the response code should be 200
+        And the response should contain json with a recent timestamp
+    </pre>
+    <ul class="note">
+        <li>Here's the first scenario for our ping endpoint</li>
+        <li>Sending a GET request</li>
+        <li>to the ping endpoint</li>
+        <li>Should give us a HTTP 200 OK</li>
+        <li>And a recent timestamp</li>
+        <li>Let's start on the feature file for this scenario</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+use Behat\Behat\Context\ClosuredContextInterface;
+use Behat\Behat\Context\TranslatedContextInterface;
+use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
+require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit/Framework/Assert/Functions.php';
+    </pre>
+    <ul class="note">
+        <li>First we have to include all of the standard use</li>
+        <li>and require statements</li>
+        <li>This is all pretty standard</li>
+        <li>But I did warn you that you might accidentally learn this</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+public function __construct(array $parameters) {
+    $curl = new \Buzz\Client\Curl();
+    $curl-&gt;setOption(CURLOPT_FOLLOWLOCATION,
+        false);
+    $browser = new \Buzz\Browser($curl);
+    $this-&gt;useContext('api',
+        new Behat\CommonContexts\WebApiContext(
+            $parameters['base_url'], $browser
+    ));
+    <strong>&hellip;</strong></pre>
+    <ul class="note">
+        <li>Here's the constructor for our FeatureContext</li>
+        <li>We're using Buzz &rarr; under the covers for our cURL wrapper</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+public function __construct(array $parameters) {
+<span class="highlight">    $curl = new \Buzz\Client\Curl();
+    $curl-&gt;setOption(CURLOPT_FOLLOWLOCATION,
+        false);</span>
+    $browser = new \Buzz\Browser($curl);
+    $this-&gt;useContext('api',
+        new Behat\CommonContexts\WebApiContext(
+            $parameters['base_url'], $browser
+    ));
+    <strong>&hellip;</strong></pre>
+    <ul class="note">
+        <li>&hellip; under the covers for our cURL wrapper</li>
+        <li>And explicitly not following redirects</li>
+        <li>You may need to change that if you're testing redirects</li>
+        <li>Next we &rarr; set the context up</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+public function __construct(array $parameters) {
+    $curl = new \Buzz\Client\Curl();
+    $curl-&gt;setOption(CURLOPT_FOLLOWLOCATION,
+        false);
+    $browser = new \Buzz\Browser($curl);
+<span class="highlight">    $this-&gt;useContext('api',
+        new Behat\CommonContexts\WebApiContext(
+            $parameters['base_url'], $browser
+    ));</span>
+    <strong>&hellip;</strong></pre>
+    <ul class="note">
+        <li>&hellip; set the context up</li>
+        <li>This is the important part for speeding things up</li>
+        <li>Since we're using cURL as our browser instead of Firefox</li>
+        <li>It will also set the base URL from the Behat.yml file</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+        <strong>&hellip;</strong>
+        $this-&gt;getSubcontext('api')
+            -&gt;setPlaceHolder(
+                'BASE_URL',
+                $parameters['base_url']
+            );
+    }
+    </pre>
+    <ul class="note">
+        <li>And then we set the URL placeholder for use later</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+Scenario: GET ping endpoint
+<span class="highlight">    When I send a GET request to "/ping"
+    Then the response code should be 200</span>
+    And the response should contain json with a recent timestamp</pre>
+    <ul class="note">
+        <li>Behat automagically handles the first two lines</li>
+        <li>Making the request and checking the status code</li>
+        <li>So all that we need to write is the response body check</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+/**
+ * @Given /^the response should contain json with a recent timestamp$/
+ */
+public function theResponseShouldContainJsonWithARecentTimestamp() {
+    <strong>&hellip;</strong>
+    </pre>
+    <ul class="note">
+        <li>In hindsight</li>
+        <li>I probably should have chosen some shorter names for these things</li>
+        <li>Oh well, we'll roll with this random wrapping</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+    <strong>&hellip;</strong>
+    $response = $this-&gt;getSubcontext('api')
+        -&gt;getBrowser()
+        -&gt;getLastResponse()
+        -&gt;getContent();
+    $time = time();
+    $response = json_decode($response, true);
+    <strong>&hellip;</strong>
+    </pre>
+    <ul class="note">
+        <li>Here we're making a request to the server</li>
+        <li>Then getting the current timestamp</li>
+        <li>And parsing the JSON it sends back</li>
+        <li>I put it in this weird order to help with timing issues</li>
+        <li>JSON parsing in this case is real quick</li>
+        <li>But for really big JSON blobs can take a while</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="prettyprint">
+    <strong>&hellip;</strong>
+    assertGreaterThan(
+        $time - 2000,
+        $response['time']
+    );
+    assertLessThan(
+        $time + 2000,
+        $response['time']
+    );
+}
+    </pre>
+    <ul class="note">
+        <li>Then finally, we make two assertions that our time is close</li>
+        <li>You can't just check equality</li>
+        <li>Since the two clocks are probably not exact</li>
+        <li>And you have transit and processing time</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1 class="title">Testing APIs with Behat</h1>
+    <pre class="cli">
+<span class="repo">api-testing</span>(<span class="dirty">2</span><span class="ahead">0</span><span class="behind">0</span>) <span class="directory">/</span>$ ./vendor/bin/behat tests/functional/ping.feature
+Feature: Ping controller
+    To allow API testing
+    As a client
+    I should be able to ping the API
+
+Scenario: GET ping endpoint
+    <span class="success">When I send a <strong>GET</strong> request to "<strong>/ping</strong>"
+    Then the response code should be <strong>200</strong>
+    And the response should contain json with a recent timestamp</span>
+
+1 scenario (<span class="success">1 passed</span>)
+2 steps (<span class="success">2 passed</span>)
+0m0.137s
+</pre>
+    <ul class="note">
+        <li>If you run that fancy new feature test</li>
+        <li>you'll hopefully see something more like this</li>
+        <li>The most important thing to notice here is how fast it ran</li>
+        <li>Compare that to firing up Firefox</li>
+        <li>connecting to the API</li>
+        <li>and then tearing down Firefox</li>
+    </ul>
+</section>
+
 <!--
 <section class="slide">
     <pre class="prettyprint">
