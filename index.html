@@ -31,9 +31,9 @@
     <h1>What you'll <span>(hopefully)</span> learn</h1>
     <ul class="note">
         <li>What are you going to learn today?</li>
-        <li>start with testing an API with PHPUnit and CURL</li>
+        <li>start with testing an <a href="http://en.wikipedia.org/wiki/Application_programming_interface">API</a> with <a href="http://phpunit.de/">PHPUnit</a> and <a href="http://us3.php.net/manual/en/ref.curl.php">cURL</a></li>
         <li>have a brief discussion about doing this locally</li>
-        <li>finish with building tests in Behat</li>
+        <li>finish with building tests in <a href="http://www.behat.org/">Behat</a></li>
         <li>and how to use these tests to guide your API development</li>
     </ul>
 </section>
@@ -55,7 +55,7 @@
     <ul class="note">
         <li>You won't learn how to write <strong>unit</strong> tests</li>
         <li>or an API</li>
-        <li>or integration tests</li>
+        <li>or <a href="http://en.wikipedia.org/wiki/Integration_testing">integration tests</a></li>
         <li>Or the capitals of the nations of the world</li>
     </ul>
 </section>
@@ -63,16 +63,16 @@
 <section class="slide what-youll-learn">
     <h1>What you'll <span>(definitely not)</span> learn</h1>
     <ul class="note">
-        <li>We won't mention Selenium</li>
+        <li>We won't mention <a href="http://docs.seleniumhq.org/">Selenium</a></li>
         <li>or how to test front end UI at all</li>
-        <li>If this isn't what you were expecting</li>
-        <li>I won't be offended if you leave</li>
     </ul>
 </section>
 
 <section class="slide">
     <h1 class="title">Testing with PHPUnit and cURL</h1>
-    <img alt="FoxyCart" class="centered" src="images/foxycart.png">
+    <a href="http://www.foxycart.com">
+        <img alt="FoxyCart" class="centered" src="images/foxycart.png">
+    </a>
     <ul class="note">
         <li>Let's start with a simple PHPUnit test</li>
         <li>This may be how you start trying to test your APIs</li>
@@ -92,10 +92,10 @@
     </a>
     <ul class="note">
         <li>&hellip; drink IPAs</li>
-        <li>Let's jump right in to FoxyCart's hypermedia API</li>
+        <li>Let's jump right in to <a href="https://api.foxycart.com/docs">FoxyCart's hypermedia API</a></li>
         <li>and test what happens when we make a GET request</li>
         <li>We'll look at a few of the things you might test</li>
-        <li>like response codes, headers, and content</li>
+        <li>like response codes, <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">headers</a>, and content</li>
     </ul>
 </section>
 
@@ -136,7 +136,7 @@ function testBareGet() {
         <dd>not your fault, we broke things</dd>
     </dl>
     <ul class="note">
-        <li>Here's a list of status code categories</li>
+        <li>Here's a list of <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">status code</a> categories</li>
         <li>and what they mean</li>
         <li>100 is used for chunking, caching, or opening web sockets mainly</li>
         <li>200 means things are working, and tell how it succeeded</li>
@@ -187,7 +187,7 @@ function testContentTypeOnError() {
     <ul class="note">
         <li>Here's a test for checking the content type</li>
         <li>You can see that it's <strong>very</strong> similar to the last one</li>
-        <li>It uses curl_getinfo() to check the content-type header</li>
+        <li>It uses <a href="http://us1.php.net/curl_getinfo">curl_getinfo()</a> to check the content-type header</li>
         <li>Easy enough, right?</li>
         <li>But what if you want to test other headers?</li>
     </ul>
@@ -269,7 +269,7 @@ public function testOutputAsJson() {
 }</pre>
     <ul class="note">
         <li>One way to get around that particular problem</li>
-        <li>Parse the response as JSON</li>
+        <li>Parse the response as <a href="http://www.json.org/">JSON</a></li>
         <li>This is a bit more explicit,</li>
         <li>finding the message where we expect it in the output</li>
     </ul>
@@ -429,7 +429,7 @@ OK (5 tests, 5 assertions)</pre>
     </a>
     <ul class="note">
         <li>&hellip; tests are unrun tests</li>
-        <li>So you may want to add a group annotation</li>
+        <li>So you may want to add a <a href="http://phpunit.de/manual/current/en/appendixes.annotations.html#appendixes.annotations.group">group annotation</a></li>
         <li>like integration or slow</li>
         <li>so developers can filter which get run</li>
         <li>One of the problems you're going to have</li>
@@ -446,7 +446,7 @@ OK (5 tests, 5 assertions)</pre>
     <ul class="note">
         <li>One of the common ways to avoid this is to segment environments</li>
         <li>For example, each developer gets their own setup</li>
-        <li>Using something like Vagrant and Virtualbox</li>
+        <li>Using something like <a href="http://www.vagrantup.com/">Vagrant</a> and <a href="https://www.virtualbox.org/">Virtualbox</a></li>
         <li>This also ensures that each developer has the same setup</li>
         <li><strong>and</strong> fixes the &rarr; works on my machine problem</li>
     </ul>
@@ -475,8 +475,8 @@ OK (5 tests, 5 assertions)</pre>
     </a>
     <ul class="note">
         <li>A really easy way to set up the base for your local dev</li>
-        <li>Is with Puphpet, a web front end for setting up</li>
-        <li>both vagrant and puppet to run one or more Virtual machines</li>
+        <li>Is with <a href="https://puphpet.com/">Puphpet</a>, a web front end for setting up</li>
+        <li>both vagrant and <a href="http://puppetlabs.com/">puppet</a> to run one or more virtual machines</li>
         <li>Again, if you want to know more about that</li>
         <li>Go to Juan's talk</li>
     </ul>
@@ -505,7 +505,7 @@ about a specific VM, run `vagrant status NAME`.</pre>
         <li>Your setup will most likely be completely different</li>
         <li>But this kind of granularity lets you do even more testing</li>
         <li>For example, three of these machines aren't running</li>
-        <li>Does your application handle not being able to talk to Mongo?</li>
+        <li>Does your application handle not being able to talk to <a href="http://www.mongodb.com/">Mongo</a>?</li>
         <li>You can just turn off your database or API</li>
         <li>And cleanly handle the errors for a better experience</li>
     </ul>
@@ -532,7 +532,7 @@ about a specific VM, run `vagrant status NAME`.</pre>
     </a>
     <ul class="note">
         <li>Mink is a Behat extension that simulates a browser</li>
-        <li>How many of y'all have used Mink to test web stuff?</li>
+        <li>How many of y'all have used <a href="http://mink.behat.org/">Mink</a> to test web stuff?</li>
     </ul>
 </section>
 
@@ -662,7 +662,7 @@ about a specific VM, run `vagrant status NAME`.</pre>
         <li>PUT is used for creating or updating named resources</li>
         <li>DELETE is used for creating new resources</li>
         <li>No, wait... it's probably for removing resources</li>
-        <li>PATCH is for updating just a part of a resource</li>
+        <li><a href="https://tools.ietf.org/html/rfc5789">PATCH</a> is for updating just a part of a resource</li>
         <li>It's not an offical method, but it's useful and frequently used</li>
     </ul>
 </section>
@@ -678,7 +678,7 @@ about a specific VM, run `vagrant status NAME`.</pre>
     </pre>
     <ul class="note">
         <li>Let's start some Behat testing of our Ping endpoint</li>
-        <li>This is pretty standard Gherkin stuff</li>
+        <li>This is pretty standard <a href="http://docs.behat.org/guides/1.gherkin.html">Gherkin</a> stuff</li>
         <li>Basically describing what this particular feature does</li>
     </ul>
 </section>
@@ -1063,10 +1063,10 @@ public function theHeaderShouldBe($name, $value) {
     <div class="container"></div>
     <div class="pull-right">
         Omni Adams<br>
-        @omnicolor<br>
-        Mashery<br>
-        http://omni-spot.blogspot.com<br>
-        https://joind.in/10811
+        <a href="https://twitter.com/omnicolor">@omnicolor</a><br>
+        <a href="http://www.mashery.com">Mashery</a><br>
+        <a href="http://omni-spot.blogspot.com">http://omni-spot.blogspot.com</a><br>
+        <a href="https://joind.in/10811">https://joind.in/10811</a>
     </div>
     <ul class="note">
         <li>Thanks for your time</li>
